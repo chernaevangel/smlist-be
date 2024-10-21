@@ -46,6 +46,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
+    - name: List directory structure
+      run: |
+        echo "Listing files in the repository:"
+        ls -R
       
     - run: npm ci
     - run: npm test -- --verbose
