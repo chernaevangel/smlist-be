@@ -15,6 +15,6 @@
 npm-debug.log
 
 #omit pushing some services for now
-/services/email-services
-/services/formInputServices
-/routes/formInputsRoutes
+# /services/email-services
+# /services/formInputServices
+# /routes/formInputsRoutes
