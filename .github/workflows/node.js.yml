@@ -48,9 +48,7 @@ jobs:
         cache: 'npm'
 
     - name: List directory contents
-    - run: |
-        echo "Listing files in the repository:"
-        ls -R
+    - run: ls -R
       
     - run: npm ci
     - run: npm test -- --verbose
