@@ -6,6 +6,13 @@ export class UserService {
   static getAllUsers(): IUser[] {
     return users;
   }
+  
+  static addNewUser(user: IUser): IUser {
+    users.push(user);
+    return user;
+  }
+
+  
 
   static getUserById(id: string): IUser | undefined {
     return users.find(user => user.id === id);

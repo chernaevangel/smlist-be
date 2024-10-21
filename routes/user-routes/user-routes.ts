@@ -1,6 +1,7 @@
 // src/routes/userRoutes.ts
 import { NextFunction, Request, Response, Router } from 'express';
 import { UserService } from '../../services/user-service/user-service';
+import { IUser } from '../../models/userModel/user-model';
 
 const router = Router();
 
@@ -16,6 +17,12 @@ router.get('/users/:id', (req, res) => {
   } else {
     res.status(404).send('User not found');
   }
+});
+
+router.post('/users', (req, res) => {
+  const passedUser: IUser = req.body;  
+  const newUser = UserService.addNewUser(passedUser);
+  res.status(201).json(newUser);
 });
 
 module.exports = router;

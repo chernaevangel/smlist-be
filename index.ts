@@ -15,11 +15,9 @@ const createApp = (): Application => {
   // Middleware to parse JSON requests
   app.use(express.json());
 
-  const formInputRoutes = require('./routes/formInputsRoutes/formInputs-routes');
   const userRoutes = require('./routes/user-routes/user-routes');
 
   // Use the formInputRoutes for /formInputs endpoint
-  app.use('/formInputs', formInputRoutes);
   app.use('/api', userRoutes);
 
   app.get('/', (req: Request, res: Response) => {
