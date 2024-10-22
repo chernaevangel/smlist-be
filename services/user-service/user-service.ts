@@ -1,20 +1,23 @@
 // src/services/userService.ts
-import { users } from '../../repo/user-repo';  // Using 'import' for consistency
+import { users } from '../../repo/users/user-repo';  // Using 'import' for consistency
 import { IUser } from '../../models/userModel/user-model';  // Ensure you're importing IUser correctly
+import { IUserRepo } from '../../repo/users/interfaces/user-repo-interface';  // Ensure you're importing IUserRepo correctly
 
-export class UserService {
-  static getAllUsers(): IUser[] {
+export class UserService implements IUserRepo {
+  getAllUsers(): IUser[] {
     return users;
   }
   
-  static addNewUser(user: IUser): IUser {
+  addNewUser(user: IUser): IUser {
     users.push(user);
     return user;
   }
 
   
 
-  static getUserById(id: string): IUser | undefined {
+  getUserById(id: string): IUser | undefined {
     return users.find(user => user.id === id);
   }
+
+
 }

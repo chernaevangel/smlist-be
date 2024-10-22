@@ -12,13 +12,13 @@ const createApp = (): Application => {
     origin: '*',
   }));
 
-  // Middleware to parse JSON requests
   app.use(express.json());
 
   const userRoutes = require('./routes/user-routes/user-routes');
+  const listRoutes = require('./routes/list-routes/list-routes');
 
-  // Use the formInputRoutes for /formInputs endpoint
   app.use('/api', userRoutes);
+  app.use('/api', listRoutes);
 
   app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to Express & TypeScript Server');
@@ -32,7 +32,6 @@ const startServer = (app: Application, port: string | number): any => {
     console.log(`Server is running at http://localhost:${port}`);
   });
 
-  // Return the server instance
   return server;
 };
 
