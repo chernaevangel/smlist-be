@@ -16,9 +16,11 @@ const createApp = (): Application => {
 
   const userRoutes = require('./routes/user-routes/user-routes');
   const listRoutes = require('./routes/list-routes/list-routes');
+  const itemRoutes = require('./routes/item-routes/item-routes');
 
   app.use('/api', userRoutes);
   app.use('/api', listRoutes);
+  app.use('/api', itemRoutes);
 
   app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to Express & TypeScript Server');

@@ -1,11 +1,11 @@
 // src/services/userService.test.ts
-import { UserService } from './user-service';
-import { users } from '../../repo/users/user-repo'; 
+import { UserRepo } from '../../repo/users/user-repo';
+import { users } from '../../repo/users/users'; 
 import { IUser } from '../../models/userModel/user-model';
 
 describe('UserService', () => {
 
-  const userService = new UserService();
+  const userRepo = new UserRepo();
 
   beforeEach(() => {
     while (users.length > 0) {
@@ -14,7 +14,7 @@ describe('UserService', () => {
   });
 
   test('getAllUsers should return an empty array initially', () => {
-    const result = userService.getAllUsers();
+    const result = userRepo.getAllUsers();
     expect(result).toEqual([]); 
   });
 
@@ -28,9 +28,9 @@ describe('UserService', () => {
         familyId: '1',
     };
 
-    userService.addNewUser(newUser);
+    userRepo.addNewUser(newUser);
     
-    const result = userService.getAllUsers();
+    const result = userRepo.getAllUsers();
     expect(result).toHaveLength(1);
     expect(result).toContainEqual(newUser); 
   });
@@ -45,14 +45,14 @@ describe('UserService', () => {
         familyId: '1',
     };
 
-    const addedUser = userService.addNewUser(newUser);
+    const addedUser = userRepo.addNewUser(newUser);
     
     expect(addedUser).toEqual(newUser);  
     expect(users).toContainEqual(newUser); 
   });
 
   test('getUserById should return undefined for non-existing user', () => {
-    const result = userService.getUserById('non-existing-id');
+    const result = userRepo.getUserById('non-existing-id');
     expect(result).toBeUndefined(); 
   });
 
@@ -66,8 +66,8 @@ describe('UserService', () => {
       familyId: '1',
     };
 
-    userService.addNewUser(newUser);
-    const result = userService.getUserById('3');
+    userRepo.addNewUser(newUser);
+    const result = userRepo.getUserById('3');
     
     expect(result).toEqual(newUser);  
   });
