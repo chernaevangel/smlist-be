@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { ItemService } from '../../services/items-service/items-service';
 import { IItem } from '../../models/item-model/item-model';
+import { ItemRepoDB } from '../../repo/items/item-repo-db';
 
 const router = Router();
-const itemService = new ItemService();
+const itemService = new ItemService(new ItemRepoDB());
 
 router.get('/items', async (req: Request, res: Response, next: NextFunction) => {
     try {
