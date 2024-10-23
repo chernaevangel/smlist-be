@@ -5,17 +5,16 @@ import { query } from '../db_connector';
 export class ItemRepoDB implements IItemRepo {
     async getAllItems(): Promise<IItem[]> {
         const result = await query('SELECT * FROM items');
-        // console.log(result);
         return result as IItem[];
     }
 
     async addItem(item: IItem): Promise<IItem> {
         const result = await query(
-            `INSERT INTO items (id, title, quantity, unit, price, status, listId) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-            [item.id, item.title, item.quantity, item.unit, item.price, item.status, item.listId]
+            `INSERT INTO items (title, quantity, unit, price, status, list_id) 
+            VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+            [item.title, item.quantity, item.unit, item.price, item.status, item.list_id]
         );
-        return result[0] as IItem; // Assuming result is an array
+        return result[0] as IItem; 
     }
 
     async getItemById(id: string): Promise<IItem | undefined> {
@@ -24,7 +23,7 @@ export class ItemRepoDB implements IItemRepo {
     }
 
     async getItemsByListId(listId: string): Promise<IItem[]> {
-        const result = await query('SELECT * FROM items WHERE listId = $1', [listId]);
+        const result = await query('SELECT * FROM items WHERE list_id = $1', [listId]);
         return result as IItem[];
     }
 }

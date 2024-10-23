@@ -20,13 +20,13 @@ describe("ItemService", () => {
     test("Return all items", async () => {
         const mockItems: IItem[] = [
             { 
-                id: "1", 
+                id: 1, 
                 title: "Item1", 
                 quantity: 1,
                 unit: "unit",
                 price: 1,
                 status: "status",
-                listId: "listId"
+                list_id: "listId"
             },
     
         ];
@@ -42,13 +42,13 @@ describe("ItemService", () => {
 
     test("Add item", async () => {
         const mockItem: IItem = { 
-            id: "1", 
+            id: 1, 
             title: "Item1", 
             quantity: 1,
             unit: "unit",
             price: 1,
             status: "pending",
-            listId: "listId"
+            list_id: "listId"
         };
 
         // Mock the implementation of addItem

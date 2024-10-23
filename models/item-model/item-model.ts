@@ -1,9 +1,9 @@
 export interface IItem {
-    id: string;
+    id: number;
     title: string;
     quantity: number;
     unit: string;
     price: number;
-    status: string; // Here I can put enum for status 'pending', 'added' etc
-    listId: string;
+    status: string; 
+    list_id: string;
 }
