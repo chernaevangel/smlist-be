@@ -5,13 +5,13 @@ import { IItem } from "../../models/item-model/item-model";
 export class ItemService {
     private itemRepo: IItemRepo;
 
-    constructor() {
-        this.itemRepo = new ItemRepoDB();
+    constructor(itemRepo: IItemRepo) {
+        this.itemRepo = itemRepo;
     }
 
     //#region Items CRUD operations
     async getAllItems() {
-        const items = await this.itemRepo.getAllItems(); // Wait for the Promise to resolve
+        const items = await this.itemRepo.getAllItems();
         return items;
     }
 

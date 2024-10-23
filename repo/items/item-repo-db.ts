@@ -11,7 +11,8 @@ export class ItemRepoDB implements IItemRepo {
 
     async addItem(item: IItem): Promise<IItem> {
         const result = await query(
-            'INSERT INTO items (id, title, quantity, unit, price, status, listId) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            `INSERT INTO items (id, title, quantity, unit, price, status, listId) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
             [item.id, item.title, item.quantity, item.unit, item.price, item.status, item.listId]
         );
         return result[0] as IItem; // Assuming result is an array
