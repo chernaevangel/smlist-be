@@ -1,15 +1,18 @@
-import { ItemRepo } from "../../repo/items/list-repo";
+import { ItemRepoDB } from "../../repo/items/item-repo-db";
+import { IItemRepo } from "../../repo/items/item-repo-interface";
 import { IItem } from "../../models/item-model/item-model";
 
 export class ItemService {
-    private itemRepo: ItemRepo;
+    private itemRepo: IItemRepo;
 
     constructor() {
-        this.itemRepo = new ItemRepo();
+        this.itemRepo = new ItemRepoDB();
     }
 
-    getAllItems() {
-        return this.itemRepo.getAllItems();
+    //#region Items CRUD operations
+    async getAllItems() {
+        const items = await this.itemRepo.getAllItems(); // Wait for the Promise to resolve
+        return items;
     }
 
     addItem(item: IItem) {
@@ -19,4 +22,14 @@ export class ItemService {
     getItemById(id: string) {
         return this.itemRepo.getItemById(id);
     }
+
+    getItemsByListId(listId: string) {
+        return this.itemRepo.getItemsByListId(listId);
+    }
+    //#endregion
+
+    //#region Items Logic Operations
+    
+
+    //#endregion
 }
