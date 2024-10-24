@@ -11,20 +11,23 @@ export class ItemService {
 
     //#region Items CRUD operations
     async getAllItems() {
-        const items = await this.itemRepo.getAllItems();
+        const items: IItem[] = await this.itemRepo.getAllItems();
         return items;
     }
 
-    addItem(item: IItem) {
-        return this.itemRepo.addItem(item);
+    async addItem(item: IItem) {
+        const newItem = await this.itemRepo.addItem(item);
+        return newItem;
     }
 
-    getItemById(id: string) {
-        return this.itemRepo.getItemById(id);
+    async getItemById(id: string) {
+        const item: IItem | undefined = await this.itemRepo.getItemById(id);
+        return item;
     }
 
-    getItemsByListId(listId: string) {
-        return this.itemRepo.getItemsByListId(listId);
+    async getItemsByListId(listId: string) {
+        const items: IItem[] = await this.itemRepo.getItemsByListId(listId);
+        return items;
     }
     //#endregion
 

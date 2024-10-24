@@ -9,7 +9,6 @@ export function validateUser(data: unknown): data is IUser {
 
     // Check existence and type of all required fields
     const requiredStringFields: (keyof IUser)[] = [
-        'id',
         'username',
         'email',
         'password',

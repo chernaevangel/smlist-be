@@ -2,22 +2,23 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { UserService } from '../../services/user-service/user-service';
 import { IUser } from '../../models/userModel/user-model';
 import { validateUser } from './user-validation';
+import { UserRepoDB } from '../../repo/users/user-repo-db';
 
 const router = Router();
-const userService = new UserService();
+const userService = new UserService(new UserRepoDB());
 
-router.get('/users', (req: Request, res: Response, next: NextFunction) => {
+router.get('/users', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const allUsers = userService.getAllUsers();
+    const allUsers = await userService.getAllUsers();
     res.json(allUsers);
   } catch (error) {
     next(error); 
   }
 });
 
-router.get('/users/:id', (req: Request, res: Response, next: NextFunction) => {
+router.get('/users/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = userService.getUserById(req.params.id);
+    const user = await userService.getUserById(req.params.id);
     if (user) {
       res.json(user);
     } else {
@@ -28,7 +29,7 @@ router.get('/users/:id', (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.post('/users', (req: Request, res: Response, next: NextFunction) => {
+router.post('/users', async (req: Request, res: Response, next: NextFunction) => {
   try {
 
     if (!validateUser(req.body)) {
@@ -39,7 +40,7 @@ router.post('/users', (req: Request, res: Response, next: NextFunction) => {
 
     const passedUser: IUser = req.body; 
 
-    const newUser = userService.addNewUser(passedUser);
+    const newUser = await userService.addNewUser(passedUser);
     res.status(201).json(newUser);
   } catch (error) {
     next(error); 

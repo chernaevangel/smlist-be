@@ -1,10 +1,9 @@
-import { IUser } from "../userModel/user-model";
 
 export interface IList {
     id: string;
     title: string;
     type: string;
-    createdAt: Date;
-    updatedAt: Date;
-    createdBy: IUser;
+    created_at: Date;
+    updated_at: Date;
+    created_by: string;
 }

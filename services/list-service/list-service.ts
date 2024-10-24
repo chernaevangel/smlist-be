@@ -1,23 +1,32 @@
-import { ListRepo } from "../../repo/lists/list-repo";
+import { ListRepoDB } from "../../repo/lists/list-repo-db";
 import { IList } from "../../models/list-model/list-model";
+import { IListRepo } from "../../repo/lists/list-repo-interface";
 
 export class ListService {
-    private listRepo: ListRepo;
+    private listRepo: IListRepo;
 
-    constructor() {
-        this.listRepo = new ListRepo();
+    constructor(listRepo: IListRepo) {
+        this.listRepo = listRepo;
     }
 
-    getAllLists() {
-        return this.listRepo.getAllLists();
+    async getAllLists(): Promise<IList[]> {
+        const lists: IList[] = await this.listRepo.getAllLists();
+        return lists;
     }
 
-    addNewList(list: IList) {
-        return this.listRepo.addNewList(list);
+    async addNewList(list: IList): Promise<IList> {
+        const newList = await this.listRepo.addList(list);
+        return newList;
     }
 
-    getListById(id: string) {
+    async getListById(id: string): Promise<IList | undefined> {
         return this.listRepo.getListById(id);
     }
+
+    async getListsByUserId(userId: string): Promise<IList[]> {
+        const lists = await this.listRepo.getListsByUserId(userId);
+        return lists;
+    }
+
 
 }

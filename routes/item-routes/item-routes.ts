@@ -15,15 +15,24 @@ router.get('/items', async (req: Request, res: Response, next: NextFunction) => 
     }
 });
 
-router.get('/items/:listId', (req: Request, res: Response, next: NextFunction) => {
+router.get('/items/:listId', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const items: Promise<IItem[]> = itemService.getItemsByListId(req.params.listId);
+        const items: IItem[] = await itemService.getItemsByListId(req.params.listId);
         res.json(items)
     }
     catch (error) {
         next(error);
     }
 })
+
+router.get('/items/byId/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const item: IItem | undefined = await itemService.getItemById(req.params.id);
+        res.json(item);
+    } catch (error) {
+        next(error);
+    }
+});
 
 // Reusable async function for handling new item addition
 const addItemHandler = async (req: Request, res: Response, next: NextFunction) => {
