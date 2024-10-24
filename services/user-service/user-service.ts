@@ -1,24 +1,28 @@
 // src/services/userService.ts
 import { IUser } from '../../models/userModel/user-model';  
-import { UserRepo } from '../../repo/users/user-repo';  
+import { UserRepoDB } from '../../repo/users/user-repo-db';  
+import { IUserRepo } from '../../repo/users/interfaces/user-repo-interface';
 
 export class UserService {
-  private userRepo: UserRepo;
+  private userRepo: IUserRepo;
 
-  constructor() {
-    this.userRepo = new UserRepo();
+  constructor(userRepo: IUserRepo) {
+    this.userRepo = userRepo;
   }
 
-  getAllUsers(): IUser[] {
-    return this.userRepo.getAllUsers();
+  async getAllUsers(): Promise<IUser[]> {
+    const users: IUser[] = await this.userRepo.getAllUsers();
+    return users;
   }
 
-  addNewUser(user: IUser): IUser {
-    return this.userRepo.addNewUser(user);
+  async addNewUser(user: IUser): Promise<IUser> {
+    const newUser = await this.userRepo.addNewUser(user);
+    return newUser;
   }
 
-  getUserById(id: string): IUser | undefined {
-    return this.userRepo.getUserById(id);
+  async getUserById(id: string): Promise<IUser | undefined> {
+    const user = await this.userRepo.getUserById(id);
+    return user;
   }
 
 }
